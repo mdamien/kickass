@@ -1,7 +1,10 @@
-import os
+import os, sys
+from os.path import join
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_DIR = os.path.dirname(BASE_DIR)
+sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 
-SECRET_KEY = 'iv(n$gq(y@_@+w@pqsy8==ib4n3a(1wg3=7p$-x+wpirhi)msx'
+SECRET_KEY = 'nope'
 
 DEBUG = True
 TEMPLATE_DEBUG = True
@@ -14,6 +17,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'courses',
+    'files',
+
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -44,3 +52,12 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = join(PROJECT_DIR, 'media')
+MEDIA_URL = '/media/'
+
+TEMPLATE_DIRS = (
+    join(BASE_DIR, 'templates'),
+)
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

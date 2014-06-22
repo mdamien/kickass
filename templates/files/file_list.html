@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<a href='{% url 'files.views.upload' %}'>Upload new file</a>
+<ul>
+{% for file in files %}
+<li><a href='{{ file.url }}'>{{ file }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.js"></script>
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+{% endblock %}
