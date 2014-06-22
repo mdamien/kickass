@@ -6,7 +6,8 @@
 
 {% block content %}
 <h2>{{ file }}</h2>
-<a href='{{ file.file.url }}'>Download</a>
+<a href='{{ file.download_url }}' class='btn btn-success'>Download</a>
+<hr>
 <pre>
 {{ file.to_json }}
 </pre>

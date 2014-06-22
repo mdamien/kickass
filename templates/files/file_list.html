@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block content %}
-<a href='{% url 'files.views.upload' %}'>Upload new file</a>
-<ul>
-{% for file in files %}
-<li><a href='{{ file.url }}'>{{ file }}</a></li>
+<a href='{% url 'files.views.upload' %}' class='btn btn-primary btn-sm'>Upload new file</a>
+{% for course, files in courses %}
+    <h4>{{ course }}</h4>
+    {% for file in files %}
+    <div><a href='{{ file.get_absolute_url }}'>{{ file.title }}</a></div>
+    {% endfor %}
 {% endfor %}
-</ul>
 {% endblock %}
 
 {% block js %}

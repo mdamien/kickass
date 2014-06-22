@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     'files',
 
     'crispy_forms',
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -2,10 +2,13 @@ from django.shortcuts import render
 from files.models import File
 from django import forms
 from django.shortcuts import redirect
+import itertools
 
 def file_list(request):
-    files = File.objects.all().select_related()
-    return render(request, 'files/file_list.html', {'files':files})
+    courses = itertools.groupby(File.objects.all().select_related(),
+                lambda x:x.course.name)
+    courses = [(grouper, list(values)) for grouper, values in courses]
+    return render(request, 'files/file_list.html', {'courses':courses})
 
 class FileForm(forms.ModelForm):
     class Meta:
@@ -21,7 +24,6 @@ def upload(request):
             file.user = request.user
             file.save()
             return redirect(file)
-
     return render(request, 'files/upload.html', {'form':form})
 
 def details(request, file_pk):

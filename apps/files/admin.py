@@ -1,5 +1,4 @@
 from django.contrib import admin
-from files.models import File, Category
+from files.models import File
 
 admin.site.register(File)
-admin.site.register(Category)
