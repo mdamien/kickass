@@ -1,4 +1,6 @@
 import os, sys
+import logging
+logger = logging.getLogger(__name__)
 from os.path import join
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
@@ -23,6 +25,9 @@ INSTALLED_APPS = (
 
     'crispy_forms',
     'django_extensions',
+    'social.apps.django_app.default',
+
+    'django.contrib.humanize',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,3 +67,15 @@ TEMPLATE_DIRS = (
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+try:
+    import settings.secrets as secrets
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = secrets.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = secrets.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+except ImportError:
+    logger.warning("Google login won't work")

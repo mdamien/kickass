@@ -1,14 +1,49 @@
 {% extends 'base.html' %}
 
+{% load humanize %}
+
 {% block title %}
 {{ file }} - {{ block.super }}
 {% endblock %}
 
 {% block content %}
 <h2>{{ file }}</h2>
+{% if file.hidden %}
+        <strong>This file has been hidden</strong>
+{% else %}
 <a href='{{ file.download_url }}' class='btn btn-success'>Download</a>
-<hr>
-<pre>
-{{ file.to_json }}
-</pre>
+{% if user == file.user %}
+    &nbsp;&nbsp;
+    <form method='post' action='' style='display:inline'>
+         {% csrf_token %}
+         <input type='hidden' name='action' value='delete'/>
+         <input type='submit' value='Delete' class='btn btn-danger'/>
+    </form>
+{% endif %}
+{% if user.is_staff %}
+    &nbsp;&nbsp;
+    <form method='post' action='' style='display:inline'>
+         {% csrf_token %}
+         <input type='hidden' name='action' value='hide'/>
+         <input type='submit' value='Hide' class='btn btn-warning'/>
+    </form>
+{% endif %}
+<br>
+<br>
+<ul class="list-group">
+  <li class="list-group-item">Posted <strong>{{ file.created_on|naturalday }}</strong> 
+        by <strong>{{ file.user }}</strong></li>
+</ul>
+
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'utcio';
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+{% endif %}
 {% endblock %}
