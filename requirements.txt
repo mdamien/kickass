@@ -3,4 +3,4 @@ python-social-auth
 django-crispy-forms
 django-extensions
 gunicorn
-
+raven

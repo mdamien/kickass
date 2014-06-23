@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 
 SECRET_KEY = 'nope'
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
