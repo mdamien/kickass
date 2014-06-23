@@ -1,0 +1,6 @@
+-e git://github.com/django/django@ecc06d44ed67c5bd27278244e5cf315d6fa2c893#egg=django
+python-social-auth
+django-crispy-forms
+django-extensions
+gunicorn
+
