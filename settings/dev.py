@@ -1,7 +1,9 @@
 import os, sys
 import logging
-logger = logging.getLogger(__name__)
 from os.path import join
+import django.conf.global_settings as DEFAULT_SETTINGS
+
+logger = logging.getLogger(__name__)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
@@ -38,6 +40,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    'django.core.context_processors.request',
 )
 
 ROOT_URLCONF = 'urls'

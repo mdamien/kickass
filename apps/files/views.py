@@ -14,7 +14,7 @@ def file_list(request):
 class FileForm(forms.ModelForm):
     class Meta:
         model = File
-        exclude = ('user','url')
+        exclude = ('user','url', 'hidden')
 
 def upload(request):
     if not request.user.is_authenticated():

@@ -10,7 +10,7 @@ class File(models.Model):
     course = models.ForeignKey(Course)
     title = models.CharField(max_length=100)
     file = models.FileField()
-    created_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateField(auto_now_add=True)
     hidden = models.BooleanField(default=False) #admin-only
 
     url = models.URLField(blank=True, null=True) #TODO download everything

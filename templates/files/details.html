@@ -7,43 +7,52 @@
 {% endblock %}
 
 {% block content %}
-<h2>{{ file }}</h2>
-{% if file.hidden %}
-        <strong>This file has been hidden</strong>
-{% else %}
-<a href='{{ file.download_url }}' class='btn btn-success'>Download</a>
-{% if user == file.user %}
-    &nbsp;&nbsp;
-    <form method='post' action='' style='display:inline'>
-         {% csrf_token %}
-         <input type='hidden' name='action' value='delete'/>
-         <input type='submit' value='Delete' class='btn btn-danger'/>
-    </form>
-{% endif %}
-{% if user.is_staff %}
-    &nbsp;&nbsp;
-    <form method='post' action='' style='display:inline'>
-         {% csrf_token %}
-         <input type='hidden' name='action' value='hide'/>
-         <input type='submit' value='Hide' class='btn btn-warning'/>
-    </form>
-{% endif %}
-<br>
 <br>
 <ul class="list-group">
-  <li class="list-group-item">Posted <strong>{{ file.created_on|naturalday }}</strong> 
-        by <strong>{{ file.user }}</strong></li>
-</ul>
+    <li class='list-group-item'>
 
+    <h2>{{ file }}</h2>
 
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        var disqus_shortname = 'utcio';
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
+{% if file.hidden %}
+    </li><li class='list-group-item'><strong>This file has been hidden</strong>
+{% else %}
+    <a href='{{ file.download_url }}' class='btn btn-success'>Download</a>
+    {% if user == file.user %}
+        &nbsp;&nbsp;
+        <form method='post' action='' style='display:inline'>
+             {% csrf_token %}
+             <input type='hidden' name='action' value='delete'/>
+             <input type='submit' value='Delete' class='btn btn-danger'/>
+        </form>
+    {% endif %}
+    {% if user.is_staff %}
+        &nbsp;&nbsp;
+        <form method='post' action='' style='display:inline'>
+             {% csrf_token %}
+             <input type='hidden' name='action' value='hide'/>
+             <input type='submit' value='Hide' class='btn btn-warning'/>
+        </form>
+    {% endif %}
+    </li>
+    <li class="list-group-item">
+         Posted on <strong>{{ file.created_on }}</strong> 
+            by <strong>{{ file.user }}</strong>
+    </li>
+    </ul>
+
+        <div id="disqus_thread"></div>
 {% endif %}
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.3.5/bootstrap-select.min.js"></script>
+<script type="text/javascript">
+    var disqus_shortname = 'utcio';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
 {% endblock %}
